@@ -2,13 +2,13 @@ from django.db import models
 from django.conf import settings
 
 
-class ActiveManager(models.Manager):
+class ActiveProfileManager(models.Manager):
     """Use to get _is_active."""
 
-    def get_active_profiles(self):
+    def get_queryset(self):
         """Return list of active users."""
-        active_profiles = super(ActiveManager, self).get_active_profiles()
-        return active_profiles.filter(user__is_active=True)
+        qs = super(ActiveProfileManager, self).get_queryset()
+        return qs.filter(user__is_active__exact=True)
 
 
 class Profile(models.Model):
@@ -19,6 +19,10 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 related_name='profile')
     location = models.CharField(max_length=250)
-    friends = models.ManyToManyField("self")
-    active = ActiveManager()
-    # figure out how to do friends/where to link them
+    friends = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                                     related_name='friend_of')
+    active = ActiveProfileManager()
+
+    @property
+    def is_active(self):
+        return self._is_active
