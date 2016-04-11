@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.test import TestCase
 from .models import Photo, Album
 import factory
@@ -18,23 +19,34 @@ class AlbumFactory(factory.django.DjangoModelFactory):
         model = Album
 
 
-# class ImagesTestCase(TestCase):
-#     """Test the Images model."""
-
-#     def setUp(self):
-#         """Setup photo instance."""
-#         # import pdb; pdb.set_trace()
-#         self.photo = PhotoFactory.create(
-#             photographer=self.User,
-#             image_title="Help",
-#             image_description="haaaaaaaaaaalp",
-#             published="Public",
-#         )
+class UserFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = settings.AUTH_USER_MODEL
 
 
-#     def test_exists(self):
-#         """Test if factory instance is made."""
-#         self.assertTrue(self.photo)
+class ImagesTestCase(TestCase):
+    """Test the Images model."""
+
+    def setUp(self):
+        """Setup photo instance."""
+        # import pdb; pdb.set_trace()
+        self.user = UserFactory.create(
+            username='testuser',
+            email='death@dead.gov',
+        )
+        self.photo = PhotoFactory.create(
+            photographer=self.user,
+            image_title="Help",
+            image_description="haaaaaaaaaaalp",
+            published="Public",
+        )
+
+    def test_exists(self):
+        """Test if factory instance is made."""
+        self.assertTrue(bool(self.photo))
+
+    def test_username(self):
+        self.assertEqual(self.photo.photographer, 'testuser')
 
 
     # def tearDown(self):
