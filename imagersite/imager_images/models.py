@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 
@@ -10,7 +11,10 @@ class Photo(models.Model):
     """Class to handle photo metadata."""
 
     image = models.ImageField()
-    # insert info about photo/url/path?
+    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                     related_name="photos",
+                                     default=None)
+    ablums = models.ManyToManyField('Album', related_name="photos")
     image_title = models.CharField(max_length=250)
     image_description = models.TextField()
     date_uploaded = models.DateField(auto_now=True)
@@ -30,7 +34,10 @@ class Album(models.Model):
     alb_date_uploaded = models.DateField(auto_now=True)
     alb_date_modified = models.DateField(auto_now_add=True)
     alb_date_published = models.DateField(auto_now_add=True)
-    # still need cover and user specificity
     published = models.CharField(max_length=7,
                                  choices=PUB_CHOICES,
                                  default=PUBLIC)
+    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                     related_name="albums",
+                                     default=None)
+    # still need cover and user specificity

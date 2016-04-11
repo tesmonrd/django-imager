@@ -4,9 +4,15 @@ import factory
 # Create your tests here.
 
 
-class UserFactory(factory.django.DjangoFactoryModel):
+class PhotoFactory(factory.django.DjangoFactoryModel):
     class Meta:
-        model = Photo, Album
+        model = Photo
+
+
+class AlbumFactory(factory.django.DjangoFactoryModel):
+    class Meta:
+        model = Album
+
 
 class ImagesTestCase(TestCase):
     """Test the Images model."""
