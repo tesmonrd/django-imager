@@ -2,6 +2,15 @@ from django.db import models
 from django.conf import settings
 
 
+class ActiveManager(models.Manager):
+    """Use to get _is_active."""
+
+    def get_active_profiles(self):
+        """Return list of active users."""
+        active_profiles = super(ActiveManager, self).get_active_profiles()
+        return active_profiles.filter(user__is_active=True)
+
+
 class Profile(models.Model):
     """Establish user information for the db."""
 
@@ -11,9 +20,5 @@ class Profile(models.Model):
                                 related_name='profile')
     location = models.CharField(max_length=250)
     friends = models.ManyToManyField("self")
-    is_active = models.BooleanField()
-
-    def __repr__(self):
-        """Help visualize inputs."""
-        name = '.'.join((__name__, self.__class__.__name__))
-        return "{} is username: {}".format(name, self.user)
+    active = ActiveManager()
+    # figure out how to do friends/where to link them

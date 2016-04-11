@@ -14,7 +14,7 @@ class Photo(models.Model):
     photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      related_name="photos",
                                      default=None)
-    ablums = models.ManyToManyField('Album', related_name="photos")
+    albums = models.ManyToManyField('Album', related_name="photos")
     image_title = models.CharField(max_length=250)
     image_description = models.TextField()
     date_uploaded = models.DateField(auto_now=True)
