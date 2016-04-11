@@ -8,7 +8,9 @@ class Profile(models.Model):
 
     camera = models.CharField(max_length=250)
     picture_subject = models.CharField(max_length=250)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    user = models.OneToOneField(
+                                settings.AUTH_USER_MODEL,
+                                )
     location = models.CharField(max_length=250)
     friends = models.ManyToManyField("self")
     is_active = models.BooleanField()
