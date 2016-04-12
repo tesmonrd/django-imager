@@ -20,6 +20,8 @@ class AlbumFactory(factory.django.DjangoModelFactory):
 
 
 class UserFactory(factory.django.DjangoModelFactory):
+    """Factory for User."""
+
     class Meta:
         model = settings.AUTH_USER_MODEL
 
@@ -29,7 +31,6 @@ class ImagesAlbumsTestCase(TestCase):
 
     def setUp(self):
         """Setup photo instance."""
-        # import pdb; pdb.set_trace()
         self.user = UserFactory.create(
             username='testuser',
             email='meh@mer.gov',
