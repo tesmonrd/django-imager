@@ -3,7 +3,7 @@ from django.conf import settings
 
 # Create your models here.
 
-PUB_CHOICES = [('Private', 'Private'), ('Shared', 'Shared'), ('Public', 'Public')]
+PUB_CHOICES = [('private', 'Private'), ('shared', 'Shared'), ('public', 'Public')]
 PUBLIC = 'Public'
 
 
@@ -17,9 +17,9 @@ class Photo(models.Model):
     albums = models.ManyToManyField('Album', related_name="photos")
     image_title = models.CharField(max_length=250)
     image_description = models.TextField()
-    date_uploaded = models.DateField(auto_now=True)
-    date_modified = models.DateField(auto_now_add=True)
-    date_published = models.DateField(auto_now_add=True)
+    date_uploaded = models.DateField(auto_now_add=True)
+    date_modified = models.DateField(auto_now=True)
+    date_published = models.DateField(auto_now=True)
 
     published = models.CharField(max_length=7,
                                  choices=PUB_CHOICES,
@@ -31,9 +31,9 @@ class Album(models.Model):
 
     album_title = models.CharField(max_length=250)
     album_description = models.TextField()
-    alb_date_uploaded = models.DateField(auto_now=True)
-    alb_date_modified = models.DateField(auto_now_add=True)
-    alb_date_published = models.DateField(auto_now_add=True)
+    alb_date_uploaded = models.DateField(auto_now_add=True)
+    alb_date_modified = models.DateField(auto_now=True)
+    alb_date_published = models.DateField(auto_now=True)
     published = models.CharField(max_length=7,
                                  choices=PUB_CHOICES,
                                  default=PUBLIC)

@@ -26,4 +26,4 @@ class Profile(models.Model):
     @property
     def is_active(self):
         """Return is_active for profile."""
-        return self._is_active
+        return self.user.is_active
