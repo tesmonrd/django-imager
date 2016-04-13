@@ -16,3 +16,7 @@ class HomeView(TemplateView):
     def get_context_data(self):
         foo = 'garbanzo beans'
         return {'foo': foo}
+
+
+class RegisView(TemplateView):
+    template_name = ''
