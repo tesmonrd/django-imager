@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+    <section id="main_pic">
+        {% for img in database %}
+            {% if img.published is Public %}
+                <img src= {{ img }}>
+            {% endif %}
+        {% else %}
+            <img src= "/static/imgs/default.png">
+        {% endfor %}
+    </section>
+    <section id="Advertise">
+        <h1>DON'T BE AN IDIOT, JOIN NOW!</h1>
+        <h3> <a href="/register">Register</a> with us now and joing the best photography community in the (hello) W0RLD !</h3>
+        <h3> If you are already registered, please <a href="/signin">sign in</a>!</h3>
+    </section>
+{% endblock %}
