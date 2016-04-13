@@ -1,8 +1,9 @@
 from django.conf import settings
 from django.test import TestCase
+from django.test import Client
 from .models import Profile
+import unittest
 import factory
-# Create your tests here.
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -67,3 +68,36 @@ class ProfileTestCase(TestCase):
     def tearDown(self):
         """Tear down the stuff made in setup/need to make work."""
         pass
+
+
+class HttpTests(unittest.TestCase):
+    """Test url routes."""
+
+    def setUp(self):
+        """Set up client."""
+        self.client = Client()
+
+    def test_home(self):
+        """Test home exist."""
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_register_security(self):
+        """Test csrf security on register."""
+        response = self.client.get('/accounts/register')
+        self.assertEqual(response.status_code, 301)
+
+    def test_login_security(self):
+        """Test csrf security on login."""
+        response = self.client.get('/accounts/login')
+        self.assertEqual(response.status_code, 301)
+
+    def test_logout_security(self):
+        """Test existence on security."""
+        response = self.client.get('/accounts/logout')
+        self.assertEqual(response.status_code, 301)
+
+    def test_error(self):
+        """Test client reliability requests."""
+        response = self.client.get('/potato')
+        self.assertEqual(response.status_code, 404)
