@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
-from django.http import HttpResponseRedirect
 # from django.shortcuts import render, render_to_response
 # from django.template import loader
+from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login, logout
 
