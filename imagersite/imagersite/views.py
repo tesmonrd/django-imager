@@ -1,8 +1,9 @@
 from __future__ import unicode_literals
-# from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 # from django.shortcuts import render, render_to_response
 # from django.template import loader
 from django.views.generic import TemplateView
+from django.contrib.auth import authenticate, login, logout
 
 
 # def home_page(request, *args, **kwargs):
@@ -18,5 +19,20 @@ class HomeView(TemplateView):
         return {'foo': foo}
 
 
-class RegisView(TemplateView):
-    template_name = ''
+def login_view(request):
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return HttpResponseRedirect("/")
+        else:
+            return("Account has been disabled :( ")
+    else:
+        return("Username or Password incorrect")
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect("/")
