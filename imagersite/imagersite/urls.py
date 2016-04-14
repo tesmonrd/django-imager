@@ -23,6 +23,10 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', HomeView.as_view(template_name='home.html'),
         name="home_page"),
-    url(r'^accounts/', include('registration.backends.hmac.urls'))
+    url(r'^accounts/', include('registration.backends.hmac.urls')),
+    # url(r'^accounts/login/', django.contrib.auth.views.login, name='login')
 
 ]
+
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

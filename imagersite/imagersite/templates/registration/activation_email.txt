@@ -1,5 +1,4 @@
 Your registeration with CA is complete!
 
-Activation Key: {{ activation_key }}
+Click here to activate profile: http://{{ site.domain }}{% url 'registration_activate' activation_key %}
 Key will expire in: {{ expiration_date }}
-Site: {{ site }}

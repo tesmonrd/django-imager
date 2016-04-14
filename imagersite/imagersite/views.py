@@ -15,8 +15,12 @@ class HomeView(TemplateView):
     template_name = 'home.html'
 
     def get_context_data(self):
-        foo = 'garbanzo beans'
-        return {'foo': foo}
+        pass
+        # try:
+        #     img = Photo.objects.all().orger_by("?")[0]
+        # except IndexError:
+        #     img = None
+        # return {'img': img}
 
 
 def login_view(request):

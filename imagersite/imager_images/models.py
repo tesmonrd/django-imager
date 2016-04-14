@@ -6,6 +6,7 @@ from django.conf import settings
 PUB_CHOICES = [('private', 'Private'), ('shared', 'Shared'), ('public', 'Public')]
 PUBLIC = 'Public'
 
+# def user_directory_path(instance, filename):
 
 class Photo(models.Model):
     """Class to handle photo metadata."""

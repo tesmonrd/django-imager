@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
     <section id="main_pic">
-        {% if img %}
+        <!-- {% if img %}
             {% for img in database %}
                 {% if img.published == 'Public' %}
                     <img src= {{ img }}>
                 {% endif %}
             {% endfor %}
-        {% else %}
-            <img src= "/static/imgs/default.png">
-        {% endif %}
+        {% else %} -->
+            <img src= "{{ img.file.url }}">
+        <!-- {% endif %} -->
     </section>
     <section id="Advertise">
         <h1>DON'T BE AN IDIOT, JOIN NOW!</h1>
