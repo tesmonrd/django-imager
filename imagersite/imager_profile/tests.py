@@ -65,6 +65,10 @@ class ProfileTestCase(TestCase):
                         )
         self.assertIsNot(self.Profile.location, "Happily asleep")
 
+    def test_primary_key(self):
+        """Test if user has primary key."""
+        self.assertTrue(self.user.pk)
+
     def tearDown(self):
         """Tear down the stuff made in setup/need to make work."""
         pass
@@ -101,3 +105,8 @@ class HttpTests(unittest.TestCase):
         """Test client reliability requests."""
         response = self.client.get('/potato')
         self.assertEqual(response.status_code, 404)
+
+    def test_login(self):
+        """Test login."""
+        response = self.client.get('/accounts/login')
+        self.assertEqual(response.status_code, 301)
