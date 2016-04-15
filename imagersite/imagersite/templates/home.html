@@ -1,19 +1,15 @@
 {% extends "base.html" %}
-{% block content %}
-    <section id="main_pic">
-        <!-- {% if img %}
-            {% for img in database %}
-                {% if img.published == 'Public' %}
-                    <img src= {{ img }}>
-                {% endif %}
-            {% endfor %}
-        {% else %} -->
-            <img src= "{{ img.file.url }}">
-        <!-- {% endif %} -->
-    </section>
-    <section id="Advertise">
-        <h1>DON'T BE AN IDIOT, JOIN NOW!</h1>
-        <h3> <a href="/accounts/register">Register</a> with us now and joing the best photography community in the (hello) W0RLD !</h3>
-        <h3> If you are already registered, please <a href="/accounts/login">sign in</a>!</h3>
-    </section>
-{% endblock %}
+{% block home %}
+<section id="banner">
+    <div class="inner">
+        <h2>Camera Obscura</h2>
+        <p>Finding your friends<br />
+        since '16<br /></p>
+        <ul class="actions">
+            <li><a href="/accounts/login" class="button special">Login</a></li>
+            <li><a href="/accounts/register" class="button special">Register</a></li>
+        </ul>
+    </div>
+    <a href="#one" class="more scrolly">Learn More</a>
+</section>
+{% endblock home %}
