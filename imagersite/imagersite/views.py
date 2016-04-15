@@ -1,9 +1,11 @@
 from __future__ import unicode_literals
-# from django.shortcuts import render, render_to_response
-# from django.template import loader
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login, logout
+from imager_profile.models import Profile
+from imager_images.models import Photo, Album
+# from django.views.generic.details import DetailView
+# from .imager_images.models import Photo
 
 
 # def home_page(request, *args, **kwargs):
@@ -21,6 +23,19 @@ class HomeView(TemplateView):
         # except IndexError:
         #     img = None
         # return {'img': img}
+
+
+# class PhotoDetailView(DetailView):
+#     model = Photo
+#     template_name = "imager_images/photo_details.html"
+class ProfileDetails(TemplateView):
+    template_name = 'profile.html'
+    model = Profile
+
+
+class ImageDetails(TemplateView):
+    template_name = 'image.html'
+    model = Photo, Album
 
 
 def login_view(request):

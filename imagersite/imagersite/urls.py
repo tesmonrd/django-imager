@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from .views import HomeView
-from django.views.generic import TemplateView
+
+from .views import HomeView, ProfileDetails
+from django.conf import settings
+# from django.views.generic import TemplateView
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+# from . import settings
 
 
 urlpatterns = [
@@ -24,9 +29,12 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(template_name='home.html'),
         name="home_page"),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
-    # url(r'^accounts/login/', django.contrib.auth.views.login, name='login')
+    url(r'^details/(?P<user_id>[0-9]+)/$', ProfileDetails, name="profile")
 
 ]
 
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += staticfiles_urlpatterns()
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
