@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="profile_picture">
+    <img src= "{ user.profile_img }">
+</div>
+<section id="profile_info">
+    <h1> { User.username } </h1>
+    <ul>
+        <li> camera: { user.Profile.camera } </li>
+        <li> location: { user.Profile.location } </li>
+        <li> friends: { user.Profile.friends } </li>
+    </ul>
+</section>
+
+{% endblock %}
