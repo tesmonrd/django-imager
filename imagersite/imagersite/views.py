@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login, logout
 from imager_profile.models import Profile
@@ -28,10 +29,16 @@ class HomeView(TemplateView):
 # class PhotoDetailView(DetailView):
 #     model = Photo
 #     template_name = "imager_images/photo_details.html"
-class ProfileDetails(TemplateView):
-    template_name = 'profile.html'
-    model = Profile
+# class ProfileDetails(TemplateView):
+#     template_name = 'profile.html'
+#     model = Profile
 
+def profile_details(request, profile_id=None, **kwargs):
+    if not profile_id:
+        profile = request.user.profile
+    else:
+        profile = get_object_or_404(Profile, id=int(profile_id))
+    return render(request, "profile.html", context={"profile": profile})
 
 class ImageDetails(TemplateView):
     template_name = 'image.html'

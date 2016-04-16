@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from .views import HomeView, ProfileDetails
+from .views import HomeView, profile_details
 from django.conf import settings
 # from django.views.generic import TemplateView
 from django.conf.urls.static import static
@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(template_name='home.html'),
         name="home_page"),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
-    url(r'^details/(?P<user_id>[0-9]+)/$', ProfileDetails, name="profile")
+    url(r'^profile/(?:(?P<user_id>\d+)/)?$', profile_details, name="profile")
 
 ]
 
