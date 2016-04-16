@@ -130,4 +130,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "imagersite", "static")
 ]
 
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/profile/"
