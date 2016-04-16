@@ -6,6 +6,7 @@ class ImagerProfileConfig(AppConfig):
 
     def ready(self):
         """Code to run when the app is ready."""
+        from imager_profile import handlers
         # from imager_profile import
         # ^ link up to the signals.
 
