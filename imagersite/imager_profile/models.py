@@ -17,13 +17,16 @@ class Profile(models.Model):
     camera = models.CharField(max_length=250)
     picture_subject = models.CharField(max_length=250)
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                related_name='profile')
+                                related_name='profile',
+                                on_delete=models.CASCADE)
     location = models.CharField(max_length=250)
     friends = models.ManyToManyField(settings.AUTH_USER_MODEL,
-                                     related_name='friend_of')
+                                     related_name='friend_of',
+                                     symmetrical=False)
     active = ActiveProfileManager()
+    objects = models.Manager()
 
     @property
     def is_active(self):
         """Return is_active for profile."""
-        return self.user.is_active
+        return self._is_active
