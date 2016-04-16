@@ -2,11 +2,19 @@
 {% block home %}
 <section id="banner">
     <div class="inner">
-        <h2>Camera Obscura</h2>
+            {% if user.is_active %}
+            <h2>Welcome, { user.username }</h2>
+            {% else %}
+            <h2>Camera Obscura</h2>
+            {% endif %}
         <p>Finding your friends<br />
         since '16<br /></p>
         <ul class="actions">
+            {% if user.is_active %}
+            <li><a href="/accounts/logout" class="button special">Logout</a></li>
+            {% else %}
             <li><a href="/accounts/login" class="button special">Login</a></li>
+            {% endif %}
             <li><a href="/accounts/register" class="button special">Register</a></li>
         </ul>
     </div>
