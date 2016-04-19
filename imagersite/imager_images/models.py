@@ -15,10 +15,10 @@ def image_path(instance, file_name):
 class Photo(models.Model):
     """Class to handle photo metadata."""
 
-    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                     related_name="photos",
-                                     on_delete=models.CASCADE,)
-    image_file = models.ImageField(upload_to=image_path)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             related_name="photos",
+                             on_delete=models.CASCADE,)
+    image_file = models.ImageField(upload_to=image_path, null=True)
     image_title = models.CharField(max_length=250)
     image_description = models.TextField(max_length=400)
     date_uploaded = models.DateField(auto_now_add=True)
@@ -44,8 +44,10 @@ class Album(models.Model):
     published = models.CharField(max_length=7,
                                  choices=PUB_CHOICES,
                                  default=PUBLIC)
-    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                     related_name="albums",
-                                     on_delete=models.CASCADE)
-    cover = models.ForeignKey("Photo", null=True, related_name="album_cover")
-    # still need cover and user specificity
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             related_name="albums",
+                             on_delete=models.CASCADE)
+    cover = models.ForeignKey("Photo",
+                              null=True,
+                              related_name="album_cover",
+                              default=None)
