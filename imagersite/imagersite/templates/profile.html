@@ -26,7 +26,7 @@
                 <li>Camera Type: {{user.profile.camera}} </li>
                 <li>Subject Types: {{user.profile.picture_subject}} </li>
                 <li>Friends:</li>
-                {% for friend in user.profile.friends.all %}
+                {% for friend in user.friend_of.all %}
                 <li>{{friend.user.username}}</li>
                 {% endfor %}
             </ul>
