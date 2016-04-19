@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="two" class="wrapper alt style2">
+<h1> {{user.username}}'s Library </h1>
+{% for album in albums %}
+    <section class="spotlight">
+        <div class="image"><img src="/static/images/pic01.jpg" alt="" /></div><div class="content">
+            <h2>Magna primis lobortis<br />
+            sed ullamcorper</h2>
+            <p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+        </div>
+    </section>
+{% endfor %}
+
+{% endblock %}
+
