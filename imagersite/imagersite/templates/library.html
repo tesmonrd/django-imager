@@ -3,6 +3,9 @@
 {% block content %}
 <section id="two" class="wrapper alt style2">
 <h1> {{user.username}}'s Library </h1>
+    <header class="major">
+        <center><h2>Albums</h2></center>
+    </header>
     {% for album in albums %}
     <section class="spotlight">
         <div class="image">
@@ -20,5 +23,25 @@
     </section>
     {% endfor %}
 </section>
+
+<section id="three" class="wrapper style3 special">
+    <div class="inner">
+        <header class="major">
+            <h2>Images</h2>
+        </header>
+        <ul class="features">
+            {% for photo in photos %}
+            <li>
+                    <h3>{{ photo.image_title }}</h3>
+                    <p>{{ photo.image_description }}</p>
+                    {% thumbnail photo.image_file "100x100" crop="center" as im %}
+                    <img src="{{ im.url }}" />
+                    {% endthumbnail %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+
 {% endblock %}
 
