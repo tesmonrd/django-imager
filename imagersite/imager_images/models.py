@@ -6,18 +6,21 @@ from django.conf import settings
 PUB_CHOICES = [('private', 'Private'), ('shared', 'Shared'), ('public', 'Public')]
 PUBLIC = 'Public'
 
-# def user_directory_path(instance, filename):
+
+def image_path(instance, file_name):
+    """Send images to media root."""
+    return 'user_{0}/{1}'.format(instance.user.id, file_name)
+
 
 class Photo(models.Model):
     """Class to handle photo metadata."""
 
-    image = models.ImageField()
     photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      related_name="photos",
-                                     default=None)
-    albums = models.ManyToManyField('Album', related_name="photos")
+                                     on_delete=models.CASCADE,)
+    image_file = models.ImageField(upload_to=image_path)
     image_title = models.CharField(max_length=250)
-    image_description = models.TextField()
+    image_description = models.TextField(max_length=400)
     date_uploaded = models.DateField(auto_now_add=True)
     date_modified = models.DateField(auto_now=True)
     date_published = models.DateField(auto_now=True)
@@ -32,6 +35,9 @@ class Album(models.Model):
 
     album_title = models.CharField(max_length=250)
     album_description = models.TextField()
+    photos = models.ManyToManyField("Photo",
+                                    related_name="albums",
+                                    symmetrical=False)
     alb_date_uploaded = models.DateField(auto_now_add=True)
     alb_date_modified = models.DateField(auto_now=True)
     alb_date_published = models.DateField(auto_now=True)
@@ -40,5 +46,6 @@ class Album(models.Model):
                                  default=PUBLIC)
     photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      related_name="albums",
-                                     default=None)
+                                     on_delete=models.CASCADE)
+    cover = models.ForeignKey("Photo", null=True, related_name="album_cover")
     # still need cover and user specificity
