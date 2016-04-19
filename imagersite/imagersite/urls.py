@@ -16,12 +16,13 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from .views import HomeView, profile_details
+from .views import HomeView, profile_details, photo_details, library_view
 from django.conf import settings
 # from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-# from . import settings
+# login_required automatically send individual to login page (wrap around the url)
+# only for templates, if function view, place it in function
 
 
 urlpatterns = [
@@ -29,8 +30,11 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(template_name='home.html'),
         name="home_page"),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
-    url(r'^profile/(?:(?P<user_id>\d+)/)?$', profile_details, name="profile")
-
+    url(r'^profile/(?P<user_id>\d+)?$', profile_details, name="profile"),
+    url(r'^photos/(?P<user_id>[0-9]+)/(?P<photo_id>[0-9]+)',
+        photo_details,
+        name="photo_details"),
+    url(r'^library/', library_view, name="library_view"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
