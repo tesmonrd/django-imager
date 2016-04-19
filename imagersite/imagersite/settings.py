@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 ACCOUNT_ACTIVATION_DAYS = 7
-
+THUMBNAIL_DEBUG = True
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'imager_profile.apps.ImagerProfileConfig',
     'imager_images.apps.ImagerImagesConfig',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -129,5 +130,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "imagersite", "static")
 ]
+
 
 LOGIN_REDIRECT_URL = "/profile/"
