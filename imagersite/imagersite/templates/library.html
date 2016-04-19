@@ -3,16 +3,22 @@
 {% block content %}
 <section id="two" class="wrapper alt style2">
 <h1> {{user.username}}'s Library </h1>
-{% for album in albums %}
+    {% for album in albums %}
     <section class="spotlight">
-        {% thumbnail album.cover.image_file "500x500" as im %}
-        <div class="image"><img src="{{ im.url }}" alt="" />{% endthumbnail %}</div><div class="content">
+        <div class="image">
+            {% thumbnail album.cover.image_file "500x500" as im %}
+            <img src="{{ im.url }}" alt="" />
+            {% empty %}
+            <img src="/static/images/default_kitten.jpg" alt="" />
+        {% endthumbnail %}
+        </div>
+        <div class="content">
             <h2>{{album.album_title}}<br />
            {{album.alb_date_uploaded}}</h2>
             <p>{{album.album_description}}</p>
         </div>
     </section>
-{% endfor %}
-
+    {% endfor %}
+</section>
 {% endblock %}
 
