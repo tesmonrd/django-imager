@@ -4,7 +4,8 @@
 <section id="two" class="wrapper alt style2">
 <h1> {{user.username}}'s Library </h1>
     <header class="major">
-        <center><h2>Albums</h2></center>
+        <center><h2>Albums</h2><br/>
+        <a href="/images/albums/add" class="button special">Add New Album</a></center>
     </header>
     {% for album in albums %}
     <section class="spotlight">
@@ -27,7 +28,8 @@
 <section id="three" class="wrapper style3 special">
     <div class="inner">
         <header class="major">
-            <h2>Images</h2>
+            <h2>Images</h2><br/>
+            <a href="/images/photos/add" class="button special">Add New Photo</a>
         </header>
         <ul class="features">
             {% for photo in photos %}
