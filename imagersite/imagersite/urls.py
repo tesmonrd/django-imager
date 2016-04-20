@@ -16,14 +16,18 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from .views import HomeView, profile_details, photo_details, library_view, album_details
+from .views import (HomeView,
+                    profile_details,
+                    photo_details,
+                    library_view,
+                    album_details,
+                    CreatePhoto,
+                    CreateAlbum
+                    )
 from django.conf import settings
 # from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-# login_required automatically send individual to login page (wrap around the url)
-# only for templates, if function view, place it in function
-
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -38,6 +42,8 @@ urlpatterns = [
         album_details,
         name="album_details"),
     url(r'^library/', library_view, name="library_view"),
+    url(r'^images/photos/add', CreatePhoto.as_view(success_url="/library/")),
+    url(r'^images/albums/add', CreateAlbum.as_view(success_url="/library/")),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

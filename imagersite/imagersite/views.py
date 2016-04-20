@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView
 from imager_profile.models import Profile
-# from imager_images.models import Photo, Album
+from imager_images.models import Photo, Album
+from django.views.generic.edit import CreateView, UpdateView
 
 
 class HomeView(TemplateView):
@@ -48,3 +49,80 @@ def profile_details(request, profile_id=None, **kwargs):
     else:
         profile = get_object_or_404(Profile, id=int(profile_id))
     return render(request, "profile.html", context={"profile": profile})
+
+# *********************** Add and Edit views ********************
+
+
+class CreatePhoto(CreateView):
+    """CreateView class for create photo."""
+
+    model = Photo
+    template_name = "photo_add.html"
+    fields = ['image_file', 'image_title', 'image_description', 'published']
+
+    def form_valid(self, form, *args, **kwargs):
+        """Save information."""
+        self.object = form.save(commit=False)
+        self.object.user_id = self.request.user.id
+        self.object.save()
+        return super(CreatePhoto, self).form_valid(form)
+
+
+class EditPhoto(UpdateView):
+    """UpdateView for editing photo."""
+
+    model = Photo
+    template_name = "photo_edit.html"
+    fields = ['image_title', 'image_description', 'published']
+
+    def form_valid(self, form, *args, **kwargs):
+        self.object = form.save(commit=False)
+        self.object.user_id = self.request.user.id
+        self.object.save()
+        return super(EditPhoto, self).form_valid(form)
+
+
+class CreateAlbum(CreateView):
+    """CreateView class for create album."""
+
+    model = Album
+    template_name = "album_add.html"
+    fields = ['album_title',
+              'album_description',
+              'published',
+              'photos',
+              'cover']
+
+    def get_form(self, form_class=None):
+        form = super(CreateAlbum, self).get_form()
+        form.fields['photos'].queryset = self.request.user.photos.all()
+        return form
+
+    def form_valid(self, form, *args, **kwargs):
+        self.object = form.save(commit=False)
+        self.object.user_id = self.request.user.id
+        self.object.save()
+        return super(CreateAlbum, self).form_valid(form)
+
+
+class EditAlbum(UpdateView):
+    """UpdateView for editing album."""
+
+    model = Album
+    template_name = "album_edit.html"
+    fields = ['album_title',
+              'album_description',
+              'published',
+              'photos',
+              'cover_photo']
+
+    def get_form(self, form_class=None):
+        form = super(EditAlbum, self).get_form()
+        form.fields['photos'].queryset = self.request.user.photo_set.all()
+        return form
+
+    def form_valid(self, form, *args, **kwargs):
+        self.object = form.save(commit=False)
+        self.object.user_id = self.request.user.id
+        self.object.save()
+        return super(EditAlbum, self).form_valid(form)
