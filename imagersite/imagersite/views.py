@@ -33,7 +33,7 @@ def library_view(request, *args, **kwargs):
 
 
 def album_details(request, **kwargs):
-    album_id = kwargs.get('album_id')
+    album_id = kwargs.get('pk')
     user = User.objects.filter(id=kwargs.get('user_id')).first()
     album = user.albums.filter(id=album_id).first()
     photos = user.albums.filter(id=album_id).first().photos.all()
@@ -114,11 +114,16 @@ class EditAlbum(UpdateView):
               'album_description',
               'published',
               'photos',
-              'cover_photo']
+              'cover']
+
+    def get_context_data(self, **kwargs):
+        context = super(EditAlbum, self).get_context_data(**kwargs)
+        context['foo'] = "potato"
+        return context
 
     def get_form(self, form_class=None):
         form = super(EditAlbum, self).get_form()
-        form.fields['photos'].queryset = self.request.user.photo_set.all()
+        form.fields['photos'].queryset = self.request.user.photos.all()
         return form
 
     def form_valid(self, form, *args, **kwargs):
@@ -126,3 +131,4 @@ class EditAlbum(UpdateView):
         self.object.user_id = self.request.user.id
         self.object.save()
         return super(EditAlbum, self).form_valid(form)
+
