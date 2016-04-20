@@ -37,7 +37,7 @@ urlpatterns = [
         name="home_page"),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^profile/(?P<user_id>\d+)?$', profile_details, name="profile"),
-    url(r'^photos/(?P<user_id>\d+)/(?P<photo_id>[0-9]+)',
+    url(r'^photos/(?P<user_id>\d+)/(?P<pk>[0-9]+)',
         photo_details,
         name="photo_details"),
     url(r'^albums/(?P<user_id>\d+)/(?P<pk>[0-9]+)',
@@ -48,8 +48,8 @@ urlpatterns = [
     url(r'^images/albums/add', CreateAlbum.as_view(success_url="/library/")),
     url(r'^images/albums/edit/(?P<user_id>\d+)/(?P<pk>[0-9]+)',
         EditAlbum.as_view(success_url="/library/"), name="edit_album"),
-    url(r'^photos/(?P<user_id>\d+)/(?P<photo_id>[0-9]+)/edit',
-        EditPhoto.as_view(success_url="/library/")),
+    url(r'^images/photos/edit(?P<user_id>\d+)/(?P<pk>[0-9]+)',
+        EditPhoto.as_view(success_url="/library/"), name="edit_photo"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
