@@ -16,7 +16,7 @@ class HomeView(TemplateView):
 
 
 def photo_details(request, **kwargs):
-    photo_id = kwargs.get('photo_id')
+    photo_id = kwargs.get('pk')
     user = User.objects.filter(id=kwargs.get('user_id')).first()
     image = user.photos.filter(id=photo_id).first()
     if image.published != 'public' or request.user.id != user.id:
@@ -115,11 +115,6 @@ class EditAlbum(UpdateView):
               'published',
               'photos',
               'cover']
-
-    def get_context_data(self, **kwargs):
-        context = super(EditAlbum, self).get_context_data(**kwargs)
-        context['foo'] = "potato"
-        return context
 
     def get_form(self, form_class=None):
         form = super(EditAlbum, self).get_form()
