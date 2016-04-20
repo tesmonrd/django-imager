@@ -31,7 +31,7 @@ urlpatterns = [
         name="home_page"),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^profile/(?P<user_id>\d+)?$', profile_details, name="profile"),
-    url(r'^photos/(?P<user_id>[0-9]+)/(?P<photo_id>[0-9]+)',
+    url(r'^photos/(?P<user_id>\d+)/(?P<photo_id>[0-9]+)',
         photo_details,
         name="photo_details"),
     url(r'^library/', library_view, name="library_view"),
