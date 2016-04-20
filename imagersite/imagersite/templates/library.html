@@ -9,14 +9,14 @@
     {% for album in albums %}
     <section class="spotlight">
         <div class="image">
-            {% thumbnail album.cover.image_file "500x500" as im %}
-            <img src="{{ im.url }}" alt="" />
-            {% empty %}
-            <img src="/static/images/default_kitten.jpg" alt="" />
+        {% thumbnail album.cover.image_file "500x500" as im %}
+        <img src="{{ im.url }}" alt="" />
+        {% empty %}
+        <img src="/static/images/default_kitten.jpg" alt="" />
         {% endthumbnail %}
         </div>
         <div class="content">
-            <h2><a href="{% url 'album_details' user_id=user.id album_id=album.id %}">{{album.album_title}}<br />
+            <h2><a href="{% url 'album_details' user_id=user.id album_id=album.id %}">{{album.album_title}}</a><br />
            {{album.alb_date_uploaded}}</h2>
             <p>{{album.album_description}}</p>
         </div>
