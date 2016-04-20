@@ -16,7 +16,7 @@
         {% endthumbnail %}
         </div>
         <div class="content">
-            <h2>{{album.album_title}}<br />
+            <h2><a href="{% url 'album_details' user_id=user.id album_id=album.id %}">{{album.album_title}}<br />
            {{album.alb_date_uploaded}}</h2>
             <p>{{album.album_description}}</p>
         </div>

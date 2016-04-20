@@ -5,12 +5,13 @@
 
         <h2>Camera Obscura</h2>
 
-        <p>Finding your friends<br />
-        since '16<br /></p>
+        <p>Online Image Management<br />
+        Since '16<br /></p>
         <ul class="actions">
             {% if user.is_active %}
+            <li><a href="/profile/" class="button special">Profile</a></li>
+            <li><a href="/library/" class="button special">Library</a></li>
             <li><a href="/accounts/logout" class="button special">Logout</a></li>
-            <li><a href="/profile/" class="button special">Details</a></li>
             {% else %}
             <li><a href="/accounts/login" class="button special">Login</a></li>
             <li><a href="/accounts/register" class="button special">Register</a></li>

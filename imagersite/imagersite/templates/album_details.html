@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+{% load thumbnail %}
+<section class="wrapper alt style2">
+    <h1> {{user.username}}'s Library </h1>
+        <header class="major">
+            <center><h2>{{ album.album_title }}</h2><br />
+            <h5>{{album.alb_date_uploaded}}</h5><br />
+            <p>{{album.album_description}}</p></center>
+        </header><br />
+</section>
+
+<section class="wrapper style3 special">
+    <div class="inner">
+        <ul class="features">
+            {% for photo in photos %}
+            <li>
+                    <h3><a href="{% url 'photo_details' user_id=user.id photo_id=photo.id %}">{{ photo.image_title }}</a></h3>
+                    <p>{{ photo.image_description }}</p>
+                    {% thumbnail photo.image_file "100x100" crop="center" as im %}
+                        <img src="{{ im.url }}" />
+                    {% endthumbnail %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}
