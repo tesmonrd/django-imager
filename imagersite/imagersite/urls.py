@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from .views import HomeView, profile_details, photo_details, library_view
+from .views import HomeView, profile_details, photo_details, library_view, album_details
 from django.conf import settings
 # from django.views.generic import TemplateView
 from django.conf.urls.static import static
@@ -34,6 +34,9 @@ urlpatterns = [
     url(r'^photos/(?P<user_id>\d+)/(?P<photo_id>[0-9]+)',
         photo_details,
         name="photo_details"),
+    url(r'^albums/(?P<user_id>\d+)/(?P<album_id>[0-9]+)',
+        album_details,
+        name="album_details"),
     url(r'^library/', library_view, name="library_view"),
 ]
 

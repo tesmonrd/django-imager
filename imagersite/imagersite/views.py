@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login, logout
 from imager_profile.models import Profile
-from imager_images.models import Photo, Album
+# from imager_images.models import Photo, Album
 
 
 class HomeView(TemplateView):
@@ -30,6 +30,17 @@ def library_view(request, *args, **kwargs):
     return render(request,
                   "library.html",
                   context={"albums": albums, "photos": photos})
+
+
+def album_details(request, **kwargs):
+    album_id = kwargs.get('album_id')
+    user = User.objects.filter(id=kwargs.get('user_id')).first()
+    album = user.albums.filter(id=album_id).first()
+    photos = user.albums.filter(id=album_id).first().photos.all()
+    if request.user.id != user.id:
+        return HttpResponse("404")
+    return render(request, 'album_details.html',
+                  context={'album': album, 'photos': photos})
 
 
 def profile_details(request, profile_id=None, **kwargs):
