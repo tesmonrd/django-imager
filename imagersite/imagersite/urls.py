@@ -22,7 +22,9 @@ from .views import (HomeView,
                     library_view,
                     album_details,
                     CreatePhoto,
-                    CreateAlbum
+                    CreateAlbum,
+                    EditAlbum,
+                    EditPhoto,
                     )
 from django.conf import settings
 # from django.views.generic import TemplateView
@@ -38,12 +40,16 @@ urlpatterns = [
     url(r'^photos/(?P<user_id>\d+)/(?P<photo_id>[0-9]+)',
         photo_details,
         name="photo_details"),
-    url(r'^albums/(?P<user_id>\d+)/(?P<album_id>[0-9]+)',
+    url(r'^albums/(?P<user_id>\d+)/(?P<pk>[0-9]+)',
         album_details,
         name="album_details"),
     url(r'^library/', library_view, name="library_view"),
     url(r'^images/photos/add', CreatePhoto.as_view(success_url="/library/")),
     url(r'^images/albums/add', CreateAlbum.as_view(success_url="/library/")),
+    url(r'^images/albums/edit/(?P<user_id>\d+)/(?P<pk>[0-9]+)',
+        EditAlbum.as_view(success_url="/library/"), name="edit_album"),
+    url(r'^photos/(?P<user_id>\d+)/(?P<photo_id>[0-9]+)/edit',
+        EditPhoto.as_view(success_url="/library/")),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
