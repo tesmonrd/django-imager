@@ -17,9 +17,10 @@
         {% endthumbnail %}
         </div>
         <div class="content">
-            <h2><a href="{% url 'album_details' user_id=user.id album_id=album.id %}">{{album.album_title}}</a><br />
+            <h2><a href="{% url 'album_details' user_id=user.id pk=album.id %}">{{album.album_title}}</a><br />
            {{album.alb_date_uploaded}}</h2>
             <p>{{album.album_description}}</p>
+            <a href="{% url 'edit_album' user_id=user.id pk=album.id %}" >Edit Album</a>
         </div>
     </section>
     {% endfor %}

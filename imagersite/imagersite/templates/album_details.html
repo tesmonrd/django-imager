@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 {% load thumbnail %}
+{{ foo }}
 <section class="wrapper alt style2">
-    <h1> {{user.username}}'s Library </h1>
+    <h1> {{user.username}}'s Album </h1>
         <header class="major">
             <center><h2>{{ album.album_title }}</h2><br />
             <h5>{{album.alb_date_uploaded}}</h5><br />
