@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="two" class="wrapper alt style2">
+<h1> {{user.username}}'s Library </h1>
+    <header class="major">
+        <center><h2>{{ image.image_title }}</h2><br />
+        <h5>{{image.date_uploaded}}</h5><br />
+        <p>{{image.image_description}}</p></center>
+    </header>
+    <div style="width:100%; margin: auto;">
+        <img src="{{ image.image_file.url }}" style="max-width: 75vw; margin: auto;" alt="" />
+    </div>
+</section>
+{% endblock %}
