@@ -1,9 +1,8 @@
 from __future__ import unicode_literals
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView
-from django.contrib.auth import authenticate, login, logout
 from imager_profile.models import Profile
 # from imager_images.models import Photo, Album
 
@@ -49,22 +48,3 @@ def profile_details(request, profile_id=None, **kwargs):
     else:
         profile = get_object_or_404(Profile, id=int(profile_id))
     return render(request, "profile.html", context={"profile": profile})
-
-
-def login_view(request):
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-            return HttpResponseRedirect("/")
-        else:
-            return("Account has been disabled :( ")
-    else:
-        return("Username or Password incorrect")
-
-
-def logout_view(request):
-    logout(request)
-    return HttpResponseRedirect("/")
