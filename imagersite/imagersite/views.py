@@ -7,6 +7,7 @@ from imager_profile.models import Profile
 from django.forms import ModelForm
 from imager_images.models import Photo, Album
 from django.views.generic.edit import CreateView, UpdateView
+from django.contrib.auth.decorators import login_required
 
 
 class HomeView(TemplateView):
@@ -22,6 +23,7 @@ def photo_details(request, **kwargs):
     return render(request, 'photo_details.html', context={"image": image})
 
 
+@login_required(login_url='/login')
 def library_view(request, *args, **kwargs):
     albums = request.user.albums.all()
     photos = request.user.photos.all()
@@ -41,6 +43,7 @@ def album_details(request, **kwargs):
                   context={'album': album, 'photos': photos})
 
 
+@login_required(login_url='/login')
 def profile_details(request, profile_id=None, **kwargs):
     if not profile_id:
         profile = request.user.profile
