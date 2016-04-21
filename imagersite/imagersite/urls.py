@@ -25,9 +25,10 @@ from .views import (HomeView,
                     CreateAlbum,
                     EditAlbum,
                     EditPhoto,
+                    edit_profile,
                     )
 from django.conf import settings
-# from django.views.generic import TemplateView
+from django.views.generic import RedirectView
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
@@ -37,12 +38,12 @@ urlpatterns = [
         name="home_page"),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^profile/(?P<user_id>\d+)?$', profile_details, name="profile"),
+    url(r'^profile/edit', edit_profile,
+        name="edit_profile"),
     url(r'^photos/(?P<user_id>\d+)/(?P<pk>[0-9]+)',
-        photo_details,
-        name="photo_details"),
+        photo_details, name="photo_details"),
     url(r'^albums/(?P<user_id>\d+)/(?P<pk>[0-9]+)',
-        album_details,
-        name="album_details"),
+        album_details, name="album_details"),
     url(r'^library/', library_view, name="library_view"),
     url(r'^images/photos/add', CreatePhoto.as_view(success_url="/library/")),
     url(r'^images/albums/add', CreateAlbum.as_view(success_url="/library/")),
