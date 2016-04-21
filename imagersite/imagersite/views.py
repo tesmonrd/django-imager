@@ -153,7 +153,7 @@ def edit_profile(request):
     current_user = User.objects.get(pk=request.user.id)
     current_profile = current_user.profile
     if request.method == 'POST':
-        form1 = EditProfile(request.POST, instance=current_profile)
+        form1 = EditProfile(request.POST, request.FILES, instance=current_profile)
         form2 = EditUser(request.POST, instance=current_user)
         if form1.is_valid() and form2.is_valid():
             form1.save()
