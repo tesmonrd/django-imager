@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'imager_profile.apps.ImagerProfileConfig',
-    'imager_images.apps.ImagerImagesConfig',
+    'imager_profile',
+    'imager_images',
     'sorl.thumbnail',
 ]
 
@@ -84,8 +84,9 @@ WSGI_APPLICATION = 'imagersite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'USER': os.environ.get('USER'),
+        'NAME': 'imager',
     }
 }
 
