@@ -4,15 +4,13 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView
 from imager_profile.models import Profile
+from django.forms import ModelForm
 from imager_images.models import Photo, Album
 from django.views.generic.edit import CreateView, UpdateView
 
 
 class HomeView(TemplateView):
     template_name = 'home.html'
-
-    def get_context_data(self):
-        pass
 
 
 def photo_details(request, **kwargs):
@@ -127,3 +125,41 @@ class EditAlbum(UpdateView):
         self.object.save()
         return super(EditAlbum, self).form_valid(form)
 
+
+class EditUser(ModelForm):
+    """Access User info."""
+
+    class Meta:
+        """Soooooo meta."""
+
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'email']
+
+
+class EditProfile(ModelForm):
+    """Access Profile info."""
+
+    class Meta:
+        """Again soooo meta."""
+
+        model = Profile
+        fields = ['camera', 'location', 'picture_subject']
+
+
+def edit_profile(request):
+    current_user = User.objects.get(pk=request.user.id)
+    current_profile = current_user.profile
+    if request.method == 'POST':
+        form1 = EditProfile(request.POST, instance=current_profile)
+        form2 = EditUser(request.POST, instance=current_user)
+        if form1.is_valid() and form2.is_valid():
+            form1.save()
+            form2.save()
+            return render(request, 'profile.html')
+
+    else:
+        form1 = EditProfile(instance=current_profile)
+        form2 = EditUser(instance=current_user)
+    return render(request,
+                  'profile_edit.html',
+                  {'form1': form1, 'form2': form2})
