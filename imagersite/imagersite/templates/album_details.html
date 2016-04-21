@@ -16,7 +16,7 @@
         <ul class="features">
             {% for photo in photos %}
             <li>
-                    <h3><a href="{% url 'photo_details' user_id=user.id photo_id=photo.id %}">{{ photo.image_title }}</a></h3>
+                    <h3><a href="{% url 'photo_details' user_id=user.id pk=photo.id %}">{{ photo.image_title }}</a></h3>
                     <p>{{ photo.image_description }}</p>
                     {% thumbnail photo.image_file "100x100" crop="center" as im %}
                         <img src="{{ im.url }}" />

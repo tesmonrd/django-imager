@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 {% block home %}
+{% load thumbnail %}
+
 <section id="banner">
     <div class="inner">
-        <img src="/static/images/default_prof.png"><br /><br />
+        {% if user.profile.profile_pic %}
+            {% thumbnail user.profile.profile_pic "200x200" as im %}
+            <img src="{{ im.url }}" /><br /><br />
+            {% endthumbnail %}
+            {% else %}
+            <img src="/static/images/default_prof.png"><br /><br />
+        {% endif %}
         <h2>Welcome, {{user.username}}</h2>
         <p>Finding your friends<br />
         since '16<br /></p>
