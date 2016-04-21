@@ -146,7 +146,7 @@ class EditProfile(ModelForm):
         """Again soooo meta."""
 
         model = Profile
-        fields = ['camera', 'location', 'picture_subject']
+        fields = ['profile_pic', 'camera', 'location', 'picture_subject',]
 
 
 def edit_profile(request):

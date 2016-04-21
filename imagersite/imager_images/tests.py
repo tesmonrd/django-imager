@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.test import TestCase
 from .models import Photo, Album
+import unittest
 import factory
 # Create your tests here.
 
@@ -37,13 +38,13 @@ class ImagesAlbumsTestCase(TestCase):
             password='secret'
         )
         self.photo = PhotoFactory.create(
-            photographer=self.user,
+            user=self.user,
             image_title="Help",
             image_description="haaaaaaaaaaalp",
         )
 
         self.album = AlbumFactory.create(
-            photographer=self.user,
+            user=self.user,
             album_title="Its getting late",
             album_description='So go to bed already',
         )
@@ -54,7 +55,7 @@ class ImagesAlbumsTestCase(TestCase):
 
     def test_image_username(self):
         """Test username."""
-        self.assertIs(self.photo.photographer, self.user)
+        self.assertIs(self.photo.user, self.user)
 
     def test_image_title(self):
         """Test image title."""
@@ -78,9 +79,9 @@ class ImagesAlbumsTestCase(TestCase):
         """Test album exists."""
         self.assertTrue(self.album)
 
-    def test_album_image_photographer(self):
-        """Test album owner is same as photographer."""
-        self.assertEqual(self.album.photographer, self.photo.photographer)
+    def test_album_image_user(self):
+        """Test album owner is same as user."""
+        self.assertEqual(self.album.user, self.photo.user)
 
     def test_album_title(self):
         """Test album title."""
@@ -95,3 +96,37 @@ class ImagesAlbumsTestCase(TestCase):
     def tearDown(self):
         """Tear down the stuff made in setup/need to make work."""
         pass
+
+
+class AlbImgDBTests(unittest.TestCase):
+    """Test Album and Image detailspages."""
+
+    def setUp(self):
+        """Setup photo instance."""
+        self.user = UserFactory.create(
+            username='buzzaldrin',
+        )
+        self.moonpic = PhotoFactory.create(
+            user=self.user,
+            image_title="Lookatthat Moon",
+            image_description="Just another day in space with alienz",
+            published="public"
+        )
+
+        self.moontrip = AlbumFactory.create(
+            user=self.user,
+            album_title="MoonDays",
+            album_description='Zero Gs Zero freeze',
+        )
+
+    def test_user_db(self):
+        """Test if buzz is safe in DB."""
+        self.assertTrue(self.user.pk)
+
+    # def test_photo_db(self):
+    #     """Test if buzz's precious photo is safe and stored in db."""
+    #     self.assertTrue(self.moonpic.pk)
+
+    # def test_album_db(self):
+    #     """Test if buzz's album will make it to earth in db."""
+    #     self.assertTrue(self.moontrip.pk)

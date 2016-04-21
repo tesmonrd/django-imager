@@ -2,6 +2,11 @@ from django.db import models
 from django.conf import settings
 
 
+def image_path(instance, file_name):
+    """Send images to media root."""
+    return 'user_{0}/{1}'.format(instance.user.id, file_name)
+
+
 class ActiveProfileManager(models.Manager):
     """Use to get _is_active."""
 
@@ -15,6 +20,7 @@ class Profile(models.Model):
     """Establish user information for the db."""
 
     camera = models.CharField(max_length=250)
+    profile_pic = models.ImageField(upload_to=image_path, null=True, blank=True)
     picture_subject = models.CharField(max_length=250)
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 related_name='profile',
