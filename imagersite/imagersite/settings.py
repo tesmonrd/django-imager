@@ -21,15 +21,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "/media/"
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = os.environ.get('DEBUG', False)
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+ALLOWED_HOSTS = ['localhost', 'ec2-52-26-81-58.us-west-2.compute.amazonaws.com']
 
 ACCOUNT_ACTIVATION_DAYS = 7
-THUMBNAIL_DEBUG = True
+THUMBNAIL_DEBUG = os.environ.get('DEBUG', False)
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -85,8 +86,11 @@ WSGI_APPLICATION = 'imagersite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'USER': os.environ.get('USER'),
-        'NAME': 'imager',
+        'USER': os.environ.get('USERNAME', 'ricktesmond'),
+        'PASSWORD': os.environ.get('DBPASS'),
+        'NAME': 'ObscuraDB',
+        'HOST': 'imager.cqpbt8jg9cj5.us-west-2.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
