@@ -30,7 +30,7 @@ SESSION_COOKIE_SECURE = True
 ALLOWED_HOSTS = ['localhost', 'ec2-52-26-81-58.us-west-2.compute.amazonaws.com']
 
 ACCOUNT_ACTIVATION_DAYS = 7
-THUMBNAIL_DEBUG = True
+THUMBNAIL_DEBUG = os.environ['DEBUG']
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
