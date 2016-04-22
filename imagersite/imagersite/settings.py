@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "/media/"
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'x)0dav5$p@^=f2fh+@nbcrb)jlup4y=!t!pbmx!dc9f2j(fe*x'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
