@@ -24,13 +24,13 @@ MEDIA_URL = "/media/"
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ['DEBUG']
+DEBUG = os.environ.get('DEBUG', False)
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 ALLOWED_HOSTS = ['localhost', 'ec2-52-26-81-58.us-west-2.compute.amazonaws.com']
 
 ACCOUNT_ACTIVATION_DAYS = 7
-THUMBNAIL_DEBUG = os.environ['DEBUG']
+THUMBNAIL_DEBUG = os.environ.get('DEBUG', False)
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
