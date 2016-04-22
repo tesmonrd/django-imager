@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.test import TestCase
 from .models import Photo, Album
+from django.test import Client
 import unittest
 import factory
 # Create your tests here.
@@ -41,12 +42,14 @@ class ImagesAlbumsTestCase(TestCase):
             user=self.user,
             image_title="Help",
             image_description="haaaaaaaaaaalp",
+            published='Public'
         )
 
         self.album = AlbumFactory.create(
             user=self.user,
             album_title="Its getting late",
             album_description='So go to bed already',
+            published='Private'
         )
 
     def test_exists(self):
@@ -93,40 +96,34 @@ class ImagesAlbumsTestCase(TestCase):
         self.assertEqual(self.album.album_description, 'So go to bed already')
         self.assertIsNot(self.album.album_description, "I'll stay up longer")
 
+    def test_published(self):
+        """Test pushed status."""
+        self.assertEqual(self.photo.published, 'Public')
+        self.assertEqual(self.album.published, 'Private')
+
     def tearDown(self):
         """Tear down the stuff made in setup/need to make work."""
         pass
 
 
-class AlbImgDBTests(unittest.TestCase):
-    """Test Album and Image detailspages."""
+class HttpTests(unittest.TestCase):
+    """Test url routes."""
 
     def setUp(self):
-        """Setup photo instance."""
-        self.user = UserFactory.create(
-            username='buzzaldrin',
-        )
-        self.moonpic = PhotoFactory.create(
-            user=self.user,
-            image_title="Lookatthat Moon",
-            image_description="Just another day in space with alienz",
-            published="public"
-        )
+        """Set up client."""
+        self.client = Client()
 
-        self.moontrip = AlbumFactory.create(
-            user=self.user,
-            album_title="MoonDays",
-            album_description='Zero Gs Zero freeze',
-        )
+    def test_secure_library(self):
+        """Test library view is secured."""
+        response = self.client.get('/library/')
+        self.assertEqual(response.status_code, 302)
 
-    def test_user_db(self):
-        """Test if buzz is safe in DB."""
-        self.assertTrue(self.user.pk)
+    def test_profile_secure_login(self):
+        """Test profile is secure."""
+        response = self.client.get('/profile/')
+        self.assertEqual(response.status_code, 302)
 
-    # def test_photo_db(self):
-    #     """Test if buzz's precious photo is safe and stored in db."""
-    #     self.assertTrue(self.moonpic.pk)
-
-    # def test_album_db(self):
-    #     """Test if buzz's album will make it to earth in db."""
-    #     self.assertTrue(self.moontrip.pk)
+    def test_images_add(self):
+        """Test image add view exists."""
+        response = self.client.get('/images/photos/add')
+        self.assertEqual(response.status_code, 200)
