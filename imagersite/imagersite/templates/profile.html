@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block home %}
+{% load thumbnail %}
+
+<section id="banner">
+    <div class="inner">
+        {% if user.profile.profile_pic %}
+            {% thumbnail user.profile.profile_pic "200x200" as im %}
+            <img src="{{ im.url }}" /><br /><br />
+            {% endthumbnail %}
+            {% else %}
+            <img src="/static/images/default_prof.png"><br /><br />
+        {% endif %}
+        <h2>Welcome, {{user.username}}</h2>
+        <p>Finding your friends<br />
+        since '16<br /></p>
+        <ul class="actions">
+            <li><a href="#one" class="button special">Details</a></li>
+            <li><a href="/library/" class="button special">Library</a></li>
+            <li><a href="/accounts/logout" class="button special">Logout</a></li>
+        </ul>
+    </div>
+</section>
+
+<section id="one" class="wrapper style1 special">
+    <div class="inner">
+        <header class="major">
+            <h2>{{user.first_name}} {{user.last_name}}<br />
+            Here is you profile information</h2>
+            <ul class="icons major">
+                <li><a href="/library/"><span class="icon fa-heart-o major style1"><span class="label"></a><br /><br />Your Library</span></span></li>
+            </ul>
+            <ul>
+                <li>Location: {{user.profile.location}}</li>
+                <li>Camera Type: {{user.profile.camera}} </li>
+                <li>Subject Types: {{user.profile.picture_subject}} </li>
+                <li>Friends:</li>
+                {% for friend in user.friend_of.all %}
+                <li>{{friend.user.username}}</li>
+                {% endfor %}
+            </ul>
+            <a href="/profile/edit" class="button special">Edit Profile</a>
+        </header>
+    </div>
+</section>
+{% endblock home %}

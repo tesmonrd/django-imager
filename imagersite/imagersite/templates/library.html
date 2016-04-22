@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block content %}
+<section id="two" class="wrapper alt style2">
+<h1> {{user.username}}'s Library </h1>
+    <header class="major">
+        <center><h2>Albums</h2><br/>
+        <a href="/images/albums/add" class="button special">Add New Album</a></center>
+    </header>
+    {% for album in albums %}
+    <section class="spotlight">
+        <div class="image">
+        {% thumbnail album.cover.image_file "500x500" as im %}
+        <img src="{{ im.url }}" alt="" />
+        {% empty %}
+        <img src="/static/images/default_kitten.jpg" alt="" />
+        {% endthumbnail %}
+        </div>
+        <div class="content">
+            <h2><a href="{% url 'album_details' user_id=user.id pk=album.id %}">{{album.album_title}}</a><br />
+           {{album.alb_date_uploaded}}</h2>
+            <p>{{album.album_description}}</p>
+            <a href="{% url 'edit_album' user_id=user.id pk=album.id %}" >Edit Album</a>
+        </div>
+    </section>
+    {% endfor %}
+</section>
+
+<section id="three" class="wrapper style3 special">
+    <div class="inner">
+        <header class="major">
+            <h2>Images</h2><br/>
+            <a href="/images/photos/add" class="button special">Add New Photo</a>
+        </header>
+        <ul class="features">
+            {% for photo in photos %}
+            <li>
+                    <h3><a href="{% url 'photo_details' user_id=user.id pk=photo.id %}">{{ photo.image_title }}</a></h3>
+                    <p>{{ photo.image_description }}</p>
+                    {% thumbnail photo.image_file "100x100" crop="center" as im %}
+                    <img src="{{ im.url }}" /><br />
+                    {% endthumbnail %}
+                    <a href="{% url 'edit_photo' user_id=user.id pk=photo.id %}">Edit photo</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+
+{% endblock %}
+

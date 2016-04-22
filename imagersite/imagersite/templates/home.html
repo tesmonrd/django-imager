@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block home %}
+<section id="banner">
+    <div class="inner">
+
+        <h2>Camera Obscura</h2>
+
+        <p>Cloud Image Management<br />
+        Since '16<br /></p>
+        <ul class="actions">
+            {% if user.is_active %}
+            <li><a href="/profile/" class="button special">Profile</a></li>
+            <li><a href="/library/" class="button special">Library</a></li>
+            <li><a href="/accounts/logout" class="button special">Logout</a></li>
+            {% else %}
+            <li><a href="/accounts/login" class="button special">Login</a></li>
+            <li><a href="/accounts/register" class="button special">Register</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <a href="#one" class="more scrolly">Learn More</a>
+</section>
+
+<section id="one" class="wrapper alt style2">
+    <section class="spotlight">
+        <div class="image"><img src="/static/images/stepOne.jpg" alt="" /></div><div class="content">
+            <h2>Register Today<br />
+            to Start Storing Photos</h2>
+            <p>Everything on this site is free! Sign up to store and view photos, create albums, and share them with friends, yourself, or all of the Camera Obscura users.</p>
+        </div>
+    </section>
+    <section class="spotlight">
+        <div class="image"><img src="/static/images/stepTwo.jpg" alt="" /></div><div class="content">
+            <h2>Store your photos<br />
+            on the Cloud!</h2>
+            <p>Our cloud based storage software allows for you store any number of pictures you want.</p>
+        </div>
+    </section>
+    <section class="spotlight">
+        <div class="image"><img src="/static/images/stepThree.jpg" alt="" /></div><div class="content">
+            <h2>Create Albums<br />
+            and share them with friends!</h2>
+            <p>Once you have photos uploaded, you can create and edit albums as well as photos and share them with your friends.</p>
+        </div>
+    </section>
+</section>
+</section>
+{% endblock home %}
