@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'imager_profile',
     'imager_images',
     'sorl.thumbnail',
+    'rest_framework',
+    'imager_api',
 ]
 
 MIDDLEWARE_CLASSES = [
