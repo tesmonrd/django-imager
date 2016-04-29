@@ -37,6 +37,7 @@ EMAIL_HOST_USER = 'trailmixteam@gmail.com'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'teamtrailmix')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'trailmixteam@gmail.com'
 
 # Application definition
 
