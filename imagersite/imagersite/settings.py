@@ -91,17 +91,6 @@ DATABASES = {
         default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
     )
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'USER': os.environ.get('USERNAME', 'ricktesmond'),
-#         'PASSWORD': os.environ.get('DBPASS'),
-#         'NAME': 'ObscuraDB',
-#         'HOST': 'imager.cqpbt8jg9cj5.us-west-2.rds.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
-
 
 
 # Password validation
