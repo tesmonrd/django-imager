@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'secretkey')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
-ALLOWED_HOSTS = ['localhost', 'ec2-52-26-81-58.us-west-2.compute.amazonaws.com']
+ALLOWED_HOSTS = ['localhost', 'ec2-52-27-58-118.us-west-2.compute.amazonaws.com']
 
 ACCOUNT_ACTIVATION_DAYS = 7
 THUMBNAIL_DEBUG = os.environ.get('DEBUG', False)
