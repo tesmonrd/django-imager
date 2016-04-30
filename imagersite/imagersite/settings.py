@@ -143,3 +143,7 @@ STATICFILES_DIRS = [
 
 
 LOGIN_REDIRECT_URL = "/profile/"
+
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 10
+}
