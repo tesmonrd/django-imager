@@ -51,6 +51,7 @@ urlpatterns = [
         EditAlbum.as_view(success_url="/library/"), name="edit_album"),
     url(r'^images/photos/edit(?P<user_id>\d+)/(?P<pk>[0-9]+)',
         EditPhoto.as_view(success_url="/library/"), name="edit_photo"),
+    url(r'^api/', include('api.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

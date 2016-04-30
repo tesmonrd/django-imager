@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "/media/"
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'potato12')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
@@ -93,8 +93,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'USER': os.environ.get('USERNAME', 'ricktesmond'),
         'PASSWORD': os.environ.get('DBPASS'),
-        'NAME': 'ObscuraDB',
-        'HOST': 'imager.cqpbt8jg9cj5.us-west-2.rds.amazonaws.com',
+        'NAME': 'imager',
+        'HOST': 'imager.cqpbt8jg9cj5.us-west-2.rds.amazonaws.com:5432',
         'PORT': '5432',
     }
 }
