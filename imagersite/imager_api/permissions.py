@@ -1,9 +1,11 @@
 from rest_framework import permissions
 
+
 class ApiPermissions(permissions.BasePermission):
+    """Establish permissions."""
 
     def has_permission(self, request, view, obj):
-
-        if request.method in permissions.SAFE_METHODS:
-            return True
+        """Define permission."""
+        if request.method != 'GET':
+            return False
         return obj.owner == request.user
