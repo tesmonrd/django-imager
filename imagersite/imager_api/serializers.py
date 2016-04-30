@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .imager_images.models import Photo
+from imager_images.models import Photo
 
 
 class PhotoSerializer(serializers.HyperlinkedModelSerializer):
